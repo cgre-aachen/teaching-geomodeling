@@ -397,7 +397,7 @@ def plot_interp_with_drift(point_1_y = 2.,
     if show_contours:
         plt.contour(XX, YY, intp, 20)
     if show_field:
-        plt.pcolor(XX, YY, intp, alpha=0.6)
+        plt.pcolor(XX, YY, intp, alpha=0.6, shading='auto')
 
     if show_contours or show_field:
         try:
