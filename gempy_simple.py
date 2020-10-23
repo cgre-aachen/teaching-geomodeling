@@ -69,23 +69,31 @@ def interp_with_drift(point_1_y = 2,
     # In[9]:
 
     def cov_gradients(dist_tiled):
+        
         condition1 = 0
-        a = (h_u * h_v)
-        b = dist_tiled ** 2
-        condition2 = (np.divide(a, b, out=np.zeros_like(a), where=b != 0) * (-c_o_T * ((
-                                                                                               -14 / a_T ** 2) + 105 / 4 * dist_tiled / a_T ** 3 - 35 / 2 * dist_tiled ** 3 / a_T ** 5 + 21 / 4 * dist_tiled ** 5 / a_T ** 7) +
-                                                                             c_o_T * 7 * (
-                                                                                     9 * dist_tiled ** 5 - 20 * a_T ** 2 * dist_tiled ** 3 +
-                                                                                     15 * a_T ** 4 * dist_tiled - 4 * a_T ** 5) / (
-                                                                                     2 * a_T ** 7) -
-                                                                             perpendicularity_matrix * c_o_T * ((
-                                                                                                                        -14 / a_T ** 2) + 105 / 4 * dist_tiled / a_T ** 3 -
-                                                                                                                35 / 2 * dist_tiled ** 3 / a_T ** 5 +
-                                                                                                                21 / 4 * dist_tiled ** 5 / a_T ** 7)) +
-                      1 / 3 * np.eye(dist_tiled.shape[0]))
+        a = (h_u*h_v)
+        b = dist_tiled**2
 
-        C_G = np.where(dist_tiled == 0, condition1, condition2)  ## adding nugget effect
+        t1 =  np.divide(a, b, out=np.zeros_like(a), where=b!=0)
+        t2 = -c_o_T*((-14/a_T**2)+
+                    105/4*dist_tiled/a_T**3 -
+                    35/2 * dist_tiled**3 / a_T **5 +
+                    21 /4 * dist_tiled**5/a_T**7)+\
+            c_o_T * 7 * (9 * dist_tiled ** 5 -
+                        20 * a_T ** 2 * dist_tiled ** 3 +
+                        15 * a_T ** 4 * dist_tiled -
+                        4 * a_T ** 5) / (2 * a_T ** 7)
+        t3 = perpendicularity_matrix * \
+            c_o_T * ((-14 / a_T ** 2) + 105 / 4 * dist_tiled / a_T ** 3 -
+                    35 / 2 * dist_tiled ** 3 / a_T ** 5 +
+                    21 / 4 * dist_tiled ** 5 / a_T ** 7)
+        t4 = 1/3*np.eye(dist_tiled.shape[0])
+
+        condition2 = t1 * t2 - t3 + t4
+
+        C_G = np.where(dist_tiled==0, condition1, condition2) ## adding nugget effect
         return C_G
+
 
     # In[10]:
 
@@ -397,7 +405,7 @@ def plot_interp_with_drift(point_1_y = 2.,
     if show_contours:
         plt.contour(XX, YY, intp, 20)
     if show_field:
-        plt.pcolor(XX, YY, intp, alpha=0.6, shading='auto')
+        plt.pcolor(XX, YY, intp, alpha=0.6)
 
     if show_contours or show_field:
         try:
