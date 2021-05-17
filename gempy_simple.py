@@ -17,7 +17,8 @@ import matplotlib.pyplot as plt
 
 def interp_with_drift(point_1_y = 2,
                       point_2_y = 3,
-                      G_1_x=1):
+                      G_1_x=1,
+                      a_T = 5):
     ## defining the dips position
     G_1 = np.array([[0., 1.]])
 
@@ -63,7 +64,7 @@ def interp_with_drift(point_1_y = 2,
 
     # In[8]:
 
-    a_T = 5
+    a_T = a_T
     c_o_T = a_T ** 2 / 14 / 3
 
     # In[9]:
@@ -101,7 +102,7 @@ def interp_with_drift(point_1_y = 2,
 
     C_G = cov_gradients(dist_tiled)
 
-    C_G
+
 
     # ### covariance of interface points
 
@@ -161,9 +162,8 @@ def interp_with_drift(point_1_y = 2,
 
     C_I = cov_interface(ref_layer_points, rest_layer_points)
 
-    # In[18]:
 
-    C_I
+
 
     # ### Covariance of interface points and gradients
 
@@ -365,6 +365,7 @@ def interp_with_drift(point_1_y = 2,
 def plot_interp_with_drift(point_1_y = 2.,
                            point_2_y = 3.,
                            G_1_x=1.,
+                           a_T = 5.,
                            show_contours=False,
                            show_field=False,
                            pick_contour=False,
@@ -372,14 +373,15 @@ def plot_interp_with_drift(point_1_y = 2.,
 
     intp = interp_with_drift(point_1_y=point_1_y,
                              point_2_y=point_2_y,
-                             G_1_x=G_1_x)
+                             G_1_x=G_1_x,
+                             a_T = a_T)
 
     plt.figure(figsize=(10, 8))
 
     ## defining the dips position
-    G_1 = np.array([[0., 1.]])
+    G_1 = np.array([[1., 1.]])
 
-    G_1_x = 1
+    G_1_x = G_1_x
     G_1_y = 1
 
     G_1_tiled = np.tile(G_1, [2, 1])
@@ -423,6 +425,10 @@ def plot_interp_with_drift(point_1_y = 2.,
 
     plt.xlim([0,4.])
     plt.ylim([-.5,3.5])
+    
+    # gradient points
+    plt.arrow(G_1[0, 0], G_1[0, 1],G_1_x/10,G_1_y/10,
+              head_width=0.05,width=0.01)
 
 
     plt.plot(G_1[0, 0], G_1[0, 1], 'go')
