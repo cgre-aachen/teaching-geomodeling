@@ -8,13 +8,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-# get_ipython().run_line_magic('matplotlib', 'inline')
-
-
-# ### defne the input points
-
-# In[2]:
-
 def interp_with_drift(point_1_y = 2,
                       point_2_y = 3,
                       G_1_x=1):
@@ -30,11 +23,9 @@ def interp_with_drift(point_1_y = 2,
 
     def squared_euclidean_distance(x_1, x_2):
         try:
-            sqd = np.sqrt(np.reshape(np.sum(x_1 ** 2, 1), newshape=(x_1.shape[0], 1)) + np.reshape(np.sum(x_2 ** 2, 1),
-                                                                                               newshape=(
-                                                                                                   1, x_2.shape[
-                                                                                                       0])) - 2 * (
-                              x_1 @ x_2.T))
+            sqd = np.sqrt(np.reshape(np.sum(x_1 ** 2, 1), newshape=(x_1.shape[0], 1)) + \
+                          np.reshape(np.sum(x_2 ** 2, 1), newshape=(1, x_2.shape[0])) - \
+                          2 * (x_1 @ x_2.T))
         except RuntimeWarning:
             sqd = 0.
 
@@ -374,7 +365,7 @@ def plot_interp_with_drift(point_1_y = 2.,
                              point_2_y=point_2_y,
                              G_1_x=G_1_x)
 
-    plt.figure(figsize=(10, 8))
+    plt.figure(figsize=(14, 8))
 
     ## defining the dips position
     G_1 = np.array([[0., 1.]])
@@ -424,5 +415,6 @@ def plot_interp_with_drift(point_1_y = 2.,
     plt.xlim([0,4.])
     plt.ylim([-.5,3.5])
 
-
     plt.plot(G_1[0, 0], G_1[0, 1], 'go')
+
+
