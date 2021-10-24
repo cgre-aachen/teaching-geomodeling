@@ -448,7 +448,7 @@ def get_lithology_from_interp_with_drift(point_1_y = 2.,
     layer_1_interp = l1_bool * layer_1_interp
     layer_2_interp = l2_bool * layer_2_interp
 
-    return layer_1_interp + layer_2_interp
+    return layer_1_interp, layer_2_interp
 
 
 def create_litho_plot(layer_interp):
