@@ -6,7 +6,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-
+from scipy.interpolate import RegularGridInterpolator
 
 def interp_with_drift(point_1_y = 2,
                       point_2_y = 3,
@@ -417,4 +417,48 @@ def plot_interp_with_drift(point_1_y = 2.,
 
     plt.plot(G_1[0, 0], G_1[0, 1], 'go')
 
+
+def get_lithology_from_interp_with_drift(point_1_y = 2.,
+                           point_2_y = 3.,
+                           G_1_x=1.,
+                           show_contours=False,
+                           show_field=False,
+                           pick_contour=False,
+                           contour_val=2):
+
+    # similar to interp_with_drift, but not generating a plot, only returing the interpolated and mapped lithologies
+    # for example for uncertainty quantification
+
+    intp = interp_with_drift(point_1_y=point_1_y,
+                             point_2_y=point_2_y,
+                             G_1_x=G_1_x)
+
+    xx = np.arange(-.5, 4.5, 0.1)
+    yy = np.arange(-.5, 4.5, 0.1)
+    XX, YY = np.meshgrid(xx, yy)
+    X = (np.reshape(XX, [-1])).T
+    Y = (np.reshape(YY, [-1])).T
+    grid = np.stack([X, Y], axis=1)
+
+    # perform regular grid interpolation
+    my_interpolating_function = RegularGridInterpolator((xx, yy), interp.T)
+
+    # extract lithologies
+    layer_1_interp = np.ones((50, 50))
+    layer_2_interp = np.ones((50, 50)) * 2
+
+    l1_bool = interp < my_interpolating_function([0, 0])
+    l2_bool = interp < my_interpolating_function([0, 2])
+    layer_1_interp = l1_bool * layer_1_interp
+    layer_2_interp = l2_bool * layer_2_interp
+
+    return layer_1_interp + layer_2_interp
+
+
+def create_litho_plot(layer_interp):
+    plt.figure(figsize=(14, 8))
+    xx = np.arange(-.5, 4.5, 0.1)
+    yy = np.arange(-.5, 4.5, 0.1)
+    XX, YY = np.meshgrid(xx, yy)
+    plt.pcolor(XX, YY, layer_interp, alpha=0.6)
 
