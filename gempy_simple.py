@@ -420,11 +420,7 @@ def plot_interp_with_drift(point_1_y = 2.,
 
 def get_lithology_from_interp_with_drift(point_1_y = 2.,
                            point_2_y = 3.,
-                           G_1_x=1.,
-                           show_contours=False,
-                           show_field=False,
-                           pick_contour=False,
-                           contour_val=2):
+                           G_1_x = 1.):
 
     # similar to interp_with_drift, but not generating a plot, only returing the interpolated and mapped lithologies
     # for example for uncertainty quantification
@@ -441,7 +437,7 @@ def get_lithology_from_interp_with_drift(point_1_y = 2.,
     grid = np.stack([X, Y], axis=1)
 
     # perform regular grid interpolation
-    my_interpolating_function = RegularGridInterpolator((xx, yy), interp.T)
+    my_interpolating_function = RegularGridInterpolator((xx, yy), intp.T)
 
     # extract lithologies
     layer_1_interp = np.ones((50, 50))
