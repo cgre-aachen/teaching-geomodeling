@@ -451,10 +451,12 @@ def get_lithology_from_interp_with_drift(point_1_y = 2.,
     return layer_1_interp, layer_2_interp
 
 
-def create_litho_plot(layer_interp, cmap='viridis'):
+def create_litho_plot(layer_interp, cmap='viridis', colorbar=False):
     plt.figure(figsize=(14, 8))
     xx = np.arange(-.5, 4.5, 0.1)
     yy = np.arange(-.5, 4.5, 0.1)
     XX, YY = np.meshgrid(xx, yy)
     plt.pcolor(XX, YY, layer_interp, alpha=0.6, cmap=cmap)
+    if colorbar:
+        plt.colorbar()
 
