@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Quadratic Bézier Curve}
+
+A quadratic Bézier curve is defined by three points: \( P_0 \), \( P_1 \), and \( P_2 \). The curve is defined by the parameter \( t \) which ranges from 0 to 1.
+
+\textbf{Mathematical Formulation:}
+\[
+B(t) = (1-t)^2 \cdot P_0 + 2(1-t) \cdot t \cdot P_1 + t^2 \cdot P_2
+\]
+
+\subsection*{Derivation:}
+
+\begin{enumerate}
+    \item We start with linear interpolations between each pair of control points:
+    \begin{align*}
+        \text{Between } P_0 \text{ and } P_1 &: \quad Q_0(t) = (1-t) \cdot P_0 + t \cdot P_1 \\
+        \text{Between } P_1 \text{ and } P_2 &: \quad Q_1(t) = (1-t) \cdot P_1 + t \cdot P_2
+    \end{align*}
+    
+    \item Now, interpolate between \( Q_0(t) \) and \( Q_1(t) \):
+    \[
+    B(t) = (1-t) \cdot Q_0(t) + t \cdot Q_1(t)
+    \]
+    
+    \item Substituting in our expressions for \( Q_0(t) \) and \( Q_1(t) \) from step 1:
+    \[
+    B(t) = (1-t) \left[ (1-t) \cdot P_0 + t \cdot P_1 \right] + t \left[ (1-t) \cdot P_1 + t \cdot P_2 \right]
+    \]
+    
+    \item Expanding and grouping terms:
+    \[
+    B(t) = (1-t)^2 \cdot P_0 + 2(1-t) \cdot t \cdot P_1 + t^2 \cdot P_2
+    \]
+\end{enumerate}
+
+\end{document}
