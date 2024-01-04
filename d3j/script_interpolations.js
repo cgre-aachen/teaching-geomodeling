@@ -15,13 +15,13 @@ function seededPRNG(seed) {
 }
 
 // Set the seed for reproducibility
-const seed = 12345;  // Change this value for different results
+const seed = 12312;  // Change this value for different results
 const random = seededPRNG(seed);
 
 // Generate 10 random x,y-pairs
 const data = Array.from({ length: 10 }, () => ({
-    x: random() * 10,  // Assuming you want x and y values in the range [10, 10]
-    y: random() * 10
+    x: random() * 5 + 2.5,  // Assuming you want x and y values in the range [10, 10]
+    y: random() * 5 + 2.5
 }));
 
 console.log(data);
@@ -64,6 +64,16 @@ g.append("g")
         .tickSize(-width)
         .tickFormat(""));
 
+// **************************
+// Slider
+// **************************
+
+// Select the slider and degree display elements
+const slider = document.getElementById('degreeSlider');
+const degreeDisplay = document.getElementById('degreeValue');
+
+let degree = parseInt(slider.value);  // Initial degree from the slider
+
 
 // **************************
 // Regression function
@@ -80,7 +90,7 @@ function updateRegressionCurve() {
     const ys = data.map(d => [d.y]);
 
     // Create the polynomial regression model
-    const degree = 2;  // Adjust degree as necessary
+    // const degree = 9;  // Adjust degree as necessary
     const model = new PolynomialRegressor(degree);
     model.fit(xs, ys);  // Fit the model to the data
 
@@ -128,6 +138,13 @@ function dragged(event, d) {
     // Update the regression curve after dragging a point
     updateRegressionCurve();
 }
+
+// Event listener for the slider
+slider.addEventListener('input', function() {
+    degree = parseInt(this.value);  // Update the degree
+    degreeDisplay.textContent = degree;  // Update the displayed degree value
+    updateRegressionCurve();  // Update the regression curve
+});
 
 // Apply drag behavior to the points
 g.selectAll(".dot")

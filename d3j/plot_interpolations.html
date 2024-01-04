@@ -4,14 +4,14 @@
     <title>Interactive D3 Plot</title>
     <!-- Link to D3.js -->
     <script src="https://d3js.org/d3.v6.min.js"></script>
-    <style>
-        .dot {
-            fill: blue;
-            stroke: black;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+    <div>
+        <label for="degreeSlider">Degree of Polynomial: <span id="degreeValue">2</span></label>
+        <input type="range" id="degreeSlider" min="1" max="9" value="2">
+    </div>
+
     <svg id="plotArea" width="800" height="400"></svg>
     <script type="module" src="./dist/bundle.js"></script>
 </body>

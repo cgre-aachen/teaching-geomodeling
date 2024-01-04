@@ -1,0 +1,8 @@
+.dot {
+    fill: blue;
+    stroke: black;
+}
+
+#degreeSlider {
+    width: 200px;
+}
