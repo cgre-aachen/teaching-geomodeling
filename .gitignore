@@ -136,3 +136,6 @@ dmypy.json
 *.fdb_*
 *.pdf
 *.aux
+
+# Ignore node.js modules
+./d3j/node_modules/*
