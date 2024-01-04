@@ -64,6 +64,52 @@ g.append("g")
         .tickSize(-width)
         .tickFormat(""));
 
+
+// **************************
+// Regression function
+// **************************
+
+// Assuming 'data' is your array of {x, y} objects
+// And assuming x and y scales (d3.scaleLinear()) and an SVG group 'g' are already set up
+
+
+// Function to fit the polynomial regression and draw the curve
+function updateRegressionCurve() {
+    // Prepare data for the library
+    const xs = data.map(d => [d.x]);
+    const ys = data.map(d => [d.y]);
+
+    // Create the polynomial regression model
+    const degree = 2;  // Adjust degree as necessary
+    const model = new PolynomialRegressor(degree);
+    model.fit(xs, ys);  // Fit the model to the data
+
+    // Generate points for the curve
+    const curvePoints = [];
+    for (let i = x.domain()[0]; i <= x.domain()[1]; i += (x.domain()[1] - x.domain()[0]) / 100) {
+        curvePoints.push({ x: i, y: model.predict([[i]])[0][0] });
+    }
+
+    // Draw the curve (or update if already drawn)
+    const line = d3.line()
+        .x(d => x(d.x))
+        .y(d => y(d.y));
+
+    const path = g.selectAll('.regression-curve')
+        .data([curvePoints]);  // Bind the new curve data
+
+    path.enter().append('path')
+        .attr('class', 'regression-curve')
+        .merge(path)
+        .attr('fill', 'none')
+        .attr('stroke', 'green')
+        .attr('stroke-width', 1.5)
+        .attr('d', line);
+}
+
+// Initial drawing of the curve
+updateRegressionCurve();
+
 // ************************************
 // Drag points
 // ************************************
@@ -78,7 +124,9 @@ function dragged(event, d) {
     d3.select(this)
     .attr('cx', x(d.x))  // Update the position using the data scale
     .attr('cy', y(d.y));
-    // Update interpolation and redraw curve here, if necessary
+
+    // Update the regression curve after dragging a point
+    updateRegressionCurve();
 }
 
 // Apply drag behavior to the points
@@ -90,43 +138,5 @@ g.selectAll(".dot")
     .attr("cy", d => y(d.y))
     .attr("r", 5)
         .call(d3.drag().on("drag", dragged));
-
-
-// ************************************
-// Perform polynomial regression
-// ************************************
-
-// Assuming 'data' is your array of {x, y} objects
-// And assuming x and y scales (d3.scaleLinear()) and an SVG group 'g' are already set up
-
-// Define the degree of the polynomial
-const degree = 5;  // Change this to try different degrees
-
-// Prepare data for the library
-const xs = data.map(d => [d.x]);  // The fit method expects an array of arrays
-const ys = data.map(d => [d.y]);  // y values also as an array of arrays
-
-// Create the polynomial regression model
-const model = new PolynomialRegressor(degree);
-model.fit(xs, ys);  // Fit the model to the data
-
-// Generate points for the curve
-const curvePoints = [];
-for (let i = x.domain()[0]; i <= x.domain()[1]; i += (x.domain()[1] - x.domain()[0]) / 100) {
-    curvePoints.push({ x: i, y: model.predict([[i]])[0] });
-}
-
-// Create a line generator function
-const line = d3.line()
-    .x(d => x(d.x))
-    .y(d => y(d.y));
-
-// Create the line SVG element
-g.append("path")
-    .datum(curvePoints)
-    .attr("fill", "none")
-    .attr("stroke", "green")
-    .attr("stroke-width", 1.5)
-    .attr("d", line);
 
 
