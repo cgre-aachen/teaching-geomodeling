@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Polynomial Interpolation}
+
+\textbf{Concept}: Polynomial interpolation is the process of constructing a polynomial that passes exactly through a given set of data points. Assume you have \( n + 1 \) distinct data points \( (x_0, y_0), (x_1, y_1), \ldots, (x_n, y_n) \). The objective is to find a polynomial \( P(x) \) of degree at most \( n \) that satisfies \( P(x_i) = y_i \) for each \( i = 0, 1, \ldots, n \).
+
+\textbf{Mathematical Formulation}:
+
+\begin{enumerate}
+    \item \textbf{Polynomial Representation}:
+    The polynomial \( P(x) \) is generally represented as:
+    \[
+    P(x) = a_0 + a_1 x + a_2 x^2 + \ldots + a_n x^n
+    \]
+    Here, \( a_0, a_1, \ldots, a_n \) are the coefficients that we need to determine.
+
+    \item \textbf{Lagrange Interpolation Formula}:
+    An often-used method for finding these coefficients is the Lagrange interpolation formula, where:
+    \[
+    P(x) = \sum_{i=0}^{n} y_i \cdot L_i(x)
+    \]
+    In this formula, \( L_i(x) \) are the Lagrange basis polynomials, defined as:
+    \[
+    L_i(x) = \prod_{\substack{j=0 \\ j \neq i}}^{n} \frac{x - x_j}{x_i - x_j}
+    \]
+    Each \( L_i(x) \) is a polynomial that equals 1 at \( x = x_i \) and 0 at all other \( x_j \) points.
+\end{enumerate}
+
+This approach ensures that the resulting polynomial \( P(x) \) passes through all the provided data points.
+
+\section*{Polynomial Splines}
+
+\textbf{Concept}: Polynomial splines are piecewise polynomial functions that are used to approximate a smooth curve through a set of data points. They are particularly useful for modeling data that is not well-represented by a single polynomial function. Cubic splines are a common type of spline, consisting of piecewise cubic polynomials.
+
+\textbf{Cubic Splines}:
+
+Assume you have a set of \( n+1 \) data points \( (x_0, y_0), (x_1, y_1), \ldots, (x_n, y_n) \). A cubic spline is a function \( S(x) \) that satisfies the following conditions:
+
+\begin{enumerate}
+    \item On each interval \([x_i, x_{i+1}]\), \( S(x) \) is a cubic polynomial. Denote these polynomials as \( S_i(x) \) for \( i = 0, 1, \ldots, n-1 \).
+    \item \( S(x_i) = y_i \) for all \( i = 0, 1, \ldots, n \), ensuring the spline passes through all the data points.
+    \item The first and second derivatives of \( S(x) \) are continuous across the intervals. This means for each \( i = 1, 2, \ldots, n-1 \), we have:
+    \[
+    S_{i-1}'(x_i) = S_i'(x_i) \quad \text{and} \quad S_{i-1}''(x_i) = S_i''(x_i)
+    \]
+    \item Additional boundary conditions are required to uniquely determine the spline. Common choices are to set \( S''(x_0) = 0 \) and \( S''(x_n) = 0 \) (natural spline), or to specify the first derivatives at the endpoints.
+\end{enumerate}
+
+Each cubic polynomial \( S_i(x) \) can be written in the form:
+\[
+S_i(x) = a_i + b_i(x - x_i) + c_i(x - x_i)^2 + d_i(x - x_i)^3
+\]
+The coefficients \( a_i, b_i, c_i, \) and \( d_i \) are determined by the conditions above and by ensuring the continuity of the spline across its intervals.
+
+Cubic splines are widely used for interpolation and approximation due to their smoothness and flexibility in fitting data.
+
+
+\end{document}
