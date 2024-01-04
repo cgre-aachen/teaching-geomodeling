@@ -31,24 +31,38 @@ console.log(data);
 // ************************************
 
 const svg = d3.select("#plotArea");
-const margin = {top: 20, right: 20, bottom: 30, left: 50};
-const width = +svg.attr("width") - margin.left - margin.right;
-const height = +svg.attr("height") - margin.top - margin.bottom;
-const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-// Scales
+const margin = { top: 40, right: 40, bottom: 60, left: 100 };
+const viewBoxWidth = 1600;
+const viewBoxHeight = 800;
+const width = viewBoxWidth - margin.left - margin.right;
+const height = viewBoxHeight - margin.top - margin.bottom;
+
 const x = d3.scaleLinear().rangeRound([0, width]);
 const y = d3.scaleLinear().rangeRound([height, 0]);
+
+const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
 x.domain(d3.extent(data, d => d.x));
 y.domain(d3.extent(data, d => d.y));
 
-// Axes
+// Create the X and Y axes with class names for future reference
 const xAxis = g.append("g")
+    .attr("class", "x axis")  // Assign class name
     .attr("transform", `translate(0,${height})`)
     .call(d3.axisBottom(x));
 
 const yAxis = g.append("g")
+    .attr("class", "y axis")  // Assign class name
     .call(d3.axisLeft(y));
+
+g.selectAll(".y.axis text")
+    .style("font-size", "30px");  // Update font size
+  
+
+    g.selectAll(".x.axis text")
+    .style("font-size", "30px");  // Update font size
+
 
 // Gridlines
 g.append("g")   
@@ -63,6 +77,9 @@ g.append("g")
     .call(d3.axisLeft(y)
         .tickSize(-width)
         .tickFormat(""));
+
+
+
 
 // **************************
 // Slider
@@ -113,7 +130,7 @@ function updateRegressionCurve() {
         .merge(path)
         .attr('fill', 'none')
         .attr('stroke', 'green')
-        .attr('stroke-width', 1.5)
+        .attr('stroke-width', 3)
         .attr('d', line);
 }
 
@@ -153,7 +170,7 @@ g.selectAll(".dot")
     .attr("class", "dot")
     .attr("cx", d => x(d.x))
     .attr("cy", d => y(d.y))
-    .attr("r", 5)
+    .attr("r", 10)
         .call(d3.drag().on("drag", dragged));
 
 
