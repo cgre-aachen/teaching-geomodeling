@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive D3 Plot</title>
+    <!-- Link to D3.js -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+        .dot {
+            fill: blue;
+            stroke: black;
+        }
+    </style>
+</head>
+<body>
+    <svg id="plotArea" width="800" height="400"></svg>
+    <script>
+        // Sample Data
+        const data = [{x: 10, y: 20}, {x: 20, y: 40}]; //, ...];  // Replace with your data
+
+        const svg = d3.select("#plotArea");
+        const margin = {top: 20, right: 20, bottom: 30, left: 50};
+        const width = +svg.attr("width") - margin.left - margin.right;
+        const height = +svg.attr("height") - margin.top - margin.bottom;
+        const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+        // Scales
+        const x = d3.scaleLinear().rangeRound([0, width]);
+        const y = d3.scaleLinear().rangeRound([height, 0]);
+        x.domain(d3.extent(data, d => d.x));
+        y.domain(d3.extent(data, d => d.y));
+
+        // Axes
+        const xAxis = g.append("g")
+            .attr("transform", `translate(0,${height})`)
+            .call(d3.axisBottom(x));
+
+        const yAxis = g.append("g")
+            .call(d3.axisLeft(y));
+
+        // Gridlines
+        g.append("g")   
+            .attr("class", "grid")
+            .attr("transform", `translate(0,${height})`)
+            .call(d3.axisBottom(x)
+                .tickSize(-height)
+                .tickFormat(""));
+
+        g.append("g")   
+            .attr("class", "grid")
+            .call(d3.axisLeft(y)
+                .tickSize(-width)
+                .tickFormat(""));
+
+        // Rest of your plotting code...
+
+        // Drag event handler
+        function dragged(event, d) {
+            const [newX, newY] = d3.pointer(event, this);  // Get the correct coordinates
+
+            d.x = x.invert(newX);  // Convert from screen to data coordinates
+            d.y = y.invert(newY);  // Convert from screen to data coordinates
+
+            d3.select(this)
+            .attr('cx', x(d.x))  // Update the position using the data scale
+            .attr('cy', y(d.y));
+            // Update interpolation and redraw curve here, if necessary
+        }
+
+        // Apply drag behavior to the points
+        g.selectAll(".dot")
+        .data(data)
+        .enter().append("circle")
+            .attr("class", "dot")
+            .attr("cx", d => x(d.x))
+            .attr("cy", d => y(d.y))
+            .attr("r", 5)
+                .call(d3.drag().on("drag", dragged));
+
+
+    </script>
+</body>
+</html>
+
