@@ -1,0 +1,80 @@
+body {
+    background-color: #1e1e1e;
+    color: #ccc;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+h1 {
+    color: #58a6ff;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+}
+
+.tiles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.tile {
+    background-color: #333;
+    border: 1px solid #444;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    color: #ddd;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.tile {
+    flex: 0 1 200px; /* Flex-grow, flex-shrink, and flex-basis */
+    width: 200px;
+    height: 200px;
+    perspective: 1000px; /* Depth effect for the flip */
+}
+
+.tile-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.tile:hover .tile-inner {
+    transform: rotateY(180deg); /* Flip effect on hover */
+}
+
+.tile-front, .tile-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Hide the back side when not flipped */
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tile-front {
+    background-color: #333;
+}
+
+.tile-back {
+    background-color: #444;
+    transform: rotateY(180deg); /* Rotate the back side */
+}
