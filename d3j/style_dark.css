@@ -1,0 +1,104 @@
+
+body {
+    background-color: #333;
+    color: #ccc;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    color: #58a6ff; /* Cool blue color for the title */
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #a6a6a6; /* Lighter text for the description */
+    font-size: 1.2em;
+}
+
+.plot-container {
+    margin: 20px 0;
+}
+
+.slider-container {
+    margin: 20px 0;
+}
+
+
+#plotArea {
+    background-color: #333; /* Dark gray background */
+}
+
+.axis path,
+.axis line,
+.axis text {
+    stroke: #ccc; /* Light gray color for axes and ticks */
+    fill: #ccc;   /* Light gray color for text */
+}
+
+.grid line {
+    stroke: lightgray;
+    stroke-opacity: 0.7;
+}
+
+.dot {
+    fill: #56B4E9; /* Example: bright blue for dots */
+    stroke: white;
+}
+
+.regression-curve {
+    stroke: #E69F00; /* Example: bright orange for the regression curve */
+}
+
+.label, .legend {
+    fill: #F0F0F0; /* Light color for text */
+}
+
+/* Additional styles for interactive controls, etc. */
+
+
+#degreeSlider {
+    width: 200px;
+}
+
+
+/* Adjust slider */
+input[type="range"] {
+    -webkit-appearance: none; /* Override default appearance */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 15px; /* Specified height */
+    background: #8c8c8c; /* Dark background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Partial transparency */
+    -webkit-transition: .2s; /* Smooth transitions */
+    transition: opacity .2s;
+}
+
+input[type="range"]:hover {
+    opacity: 1; /* Fully opaque on hover */
+}
+
+/* Slider Thumb */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default appearance */
+    appearance: none;
+    width: 25px; /* Width of the thumb */
+    height: 25px; /* Height of the thumb */
+    background: #fcfcfc; /* Light background for the thumb */
+    cursor: pointer; /* Cursor changes on hover */
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 25px; 
+    height: 25px;
+    background: #ddd;
+    cursor: pointer;
+}

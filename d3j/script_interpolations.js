@@ -41,10 +41,18 @@ const height = viewBoxHeight - margin.top - margin.bottom;
 const x = d3.scaleLinear().rangeRound([0, width]);
 const y = d3.scaleLinear().rangeRound([height, 0]);
 
-const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-x.domain(d3.extent(data, d => d.x));
-y.domain(d3.extent(data, d => d.y));
+
+const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+// Set domain limits
+
+// from data
+// x.domain(d3.extent(data, d => d.x));
+// y.domain(d3.extent(data, d => d.y));
+
+// manually
+x.domain([0, 10]);
+y.domain([0, 10]);
 
 // Create the X and Y axes with class names for future reference
 const xAxis = g.append("g")
