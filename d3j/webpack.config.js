@@ -1,11 +1,16 @@
 const path = require('path');
 
 module.exports = {
-  entry: './script_interpolations.js',  // Your main JavaScript file
-  output: {
-    filename: 'bundle.js',  // The bundled output file
-    path: path.resolve(__dirname, 'dist'),  // Output directory
+  mode: 'development', // 'production' or 'none'
+  entry: {
+    script_interpolations: './script_interpolations.js',
+    spline_interpolation: './spline_interpolation.js'
+    // Add more entry points if needed
   },
-  mode: 'development',  // Can be 'development' or 'production'
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+  // Other configuration like loaders, plugins, etc.
 };
 

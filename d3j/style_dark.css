@@ -57,6 +57,10 @@ p {
     stroke: #E69F00; /* Example: bright orange for the regression curve */
 }
 
+.spline-curve {
+    stroke: #97f998; /* Example: bright orange for the regression curve */
+}
+
 .label, .legend {
     fill: #F0F0F0; /* Light color for text */
 }
