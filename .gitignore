@@ -138,3 +138,4 @@ dmypy.json
 
 # Ignore node.js modules
 d3j/node_modules/
+.DS_Store
