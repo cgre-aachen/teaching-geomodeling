@@ -1,0 +1,78 @@
+"""Bezier quadratic example: Dash board
+
+(c) Florian Wellmann, CG3
+"""
+import dash
+from dash import dcc, html, Input, Output
+import plotly.graph_objs as go
+import numpy as np
+
+# Your existing quadratic_bezier function remains the same
+# Your existing plot_curve function logic will be adapted for use in a callback
+
+app = dash.Dash(__name__)
+
+# Layout with sliders and graph
+app.layout = html.Div([
+    dcc.Graph(id='bezier-curve'),
+    html.Div([
+        dcc.Slider(id='t-slider', min=0, max=1, value=0, step=0.01, marks={i: str(i) for i in range(0, 2)}),
+        dcc.Slider(id='x0-slider', min=-5, max=5, value=0, step=0.1, marks={i: str(i) for i in range(-5, 6)}),
+        # Repeat for y0, x1, y1, x2, y2 sliders
+    ])
+])
+
+# Callback to update graph
+@app.callback(
+    Output('bezier-curve', 'figure'),
+    [Input('t-slider', 'value'),
+     Input('x0-slider', 'value'),
+     # Include inputs for y0, x1, y1, x2, y2
+    ]
+)
+# Your existing quadratic_bezier function remains the same
+
+@app.callback(
+    Output('bezier-curve', 'figure'),
+    [Input('t-slider', 'value'),
+     Input('x0-slider', 'value'),
+     Input('y0-slider', 'value'),
+     Input('x1-slider', 'value'),
+     Input('y1-slider', 'value'),
+     Input('x2-slider', 'value'),
+     Input('y2-slider', 'value')]
+)
+def update_graph(t, x0, y0, x1, y1, x2, y2):
+    P0 = (x0, y0)
+    P1 = (x1, y1)
+    P2 = (x2, y2)
+
+    # Compute the Bézier curve
+    t_values = np.linspace(0, 1, 100)
+    curve_points = [quadratic_bezier(t_val, P0, P1, P2) for t_val in t_values]
+    curve_x, curve_y = zip(*curve_points)
+
+    # Point at current t value
+    point_t = quadratic_bezier(t, P0, P1, P2)
+
+    # Intermediate points for construction lines
+    point_t1 = ((1-t)*x0 + t*x1, (1-t)*y0 + t*y1)
+    point_t2 = ((1-t)*x1 + t*x2, (1-t)*y1 + t*y2)
+
+    # Create Plotly traces
+    trace_curve = go.Scatter(x=curve_x, y=curve_y, mode='lines', name='Bézier Curve')
+    trace_control_points = go.Scatter(x=[x0, x1, x2], y=[y0, y1, y2], mode='markers', name='Control Points', marker=dict(color='red'))
+    trace_point_t = go.Scatter(x=[point_t[0]], y=[point_t[1]], mode='markers', name=f'Point at t={t:.2f}', marker=dict(color='green', size=12))
+    trace_construction_lines = go.Scatter(x=[x0, x1, x1, x2, point_t1[0], point_t2[0]], y=[y0, y1, y1, y2, point_t1[1], point_t2[1]], mode='lines', name='Construction Lines', line=dict(dash='dash', color='magenta'))
+
+    # Combine traces into a figure
+    figure = {
+        'data': [trace_curve, trace_control_points, trace_point_t, trace_construction_lines],
+        'layout': go.Layout(title='Quadratic Bézier Curve with t Parameter', xaxis={'title': 'X'}, yaxis={'title': 'Y'}, margin={'l': 40, 'b': 40, 't': 40, 'r': 10}, legend={'x': 0, 'y': 1}, hovermode='closest')
+    }
+
+    return figure
+
+
+if __name__ == '__main__':
+    app.run_server(debug=True)
