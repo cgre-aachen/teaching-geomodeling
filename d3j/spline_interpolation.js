@@ -18,13 +18,13 @@ function seededPRNG(seed) {
 }
 
 // Set the seed for reproducibility
-const seed = 12312;  // Change this value for different results
+const seed = 12315;  // Change this value for different results
 const random = seededPRNG(seed);
 
 // Generate 10 random x,y-pairs
 const data = Array.from({ length: 10 }, () => ({
-    x: random() * 5 + 2.5,  // Assuming you want x and y values in the range [10, 10]
-    y: random() * 5 + 2.5
+    x: random() * 8 + 1,  // Assuming you want x and y values in the range [10, 10]
+    y: random() * 2 + 4
 }));
 
 console.log(data);
@@ -96,19 +96,25 @@ g.append("g")
 
 // Function to update spline curve
 function updateSpline() {
+    // Sort the data by x-values
+    data.sort((a, b) => a.x - b.x);
+
+    // Extract sorted xs and ys
     const xs = data.map(d => d.x);
     const ys = data.map(d => d.y);
+
+    // Create the spline with sorted data
     const spline = new Spline(xs, ys);
   
+    // Generate points for the curve at a higher resolution
     const curvePoints = [];
     const start = x.domain()[0];
     const end = x.domain()[1];
-    const step = (end - start) / 100;  // Adjust the number of points for smoothness
-    
+    const step = (end - start) / 500;  // Adjust the number of points for smoothness
+
     for (let i = start; i <= end; i += step) {
         curvePoints.push({ x: i, y: spline.at(i) });
     }
-
     // Draw the curve (or update if already drawn)
     const line = d3.line()
         .x(d => x(d.x))
