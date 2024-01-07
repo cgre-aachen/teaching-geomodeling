@@ -4,7 +4,8 @@ module.exports = {
   mode: 'development', // 'production' or 'none'
   entry: {
     script_interpolations: './script_interpolations.js',
-    spline_interpolation: './spline_interpolation.js'
+    spline_interpolation: './spline_interpolation.js',
+    modal: './modal.js'
     // Add more entry points if needed
   },
   output: {

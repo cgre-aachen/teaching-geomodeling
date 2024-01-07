@@ -4,6 +4,10 @@
     <title>Spline Interpolation Visualization</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style_dark.css">
+    <!-- Mathjax for rendering of equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 </head>
 <body>
     <div class="content">
@@ -16,5 +20,38 @@
     </div>
 
     <script type="module" src="./dist/spline_interpolation.bundle.js"></script>
+
+    <!-- Info Button -->
+    <button id="infoBtn">Info</button>
+
+    <!-- Info Modal -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Cubic Spline Interpolation - Theory</h2>
+            <p>
+                Cubic spline interpolation is a method of curve interpolation using cubic polynomials. It is commonly used to construct smooth curves that pass through a given set of points.
+            </p>
+            <p>
+                A cubic spline is a piecewise polynomial function of degree 3 that is continuous and has continuous first and second derivatives. The function is defined by a set of control points, and between each pair of control points, the function is a cubic polynomial.
+            </p>
+            <p>
+                The goal of spline interpolation is to find a spline function that smoothly interpolates between the given data points.
+            </p>
+            <p>
+                The general form of a cubic polynomial is:
+            </p>
+            <p>
+                \( S(x) = a_ix^3 + b_ix^2 + c_ix + d_i \)
+            </p>
+            <p>
+                where \( S(x) \) is the spline function, and \( a_i, b_i, c_i, \) and \( d_i \) are the spline coefficients for the <i>i</i>th interval.
+            </p>
+        </div>
+    </div>
+
+    <!-- Include the new JavaScript file for the modal -->
+    <script src="./dist/modal.bundle.js"></script>
+
 </body>
 </html>

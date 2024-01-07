@@ -4,6 +4,10 @@
     <title>Interactive Polynomial Regression</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style_dark.css">
+    <!-- Mathjax for rendering of equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
 </head>
 <body>
     <div class="content">
@@ -21,5 +25,33 @@
     </div>
 
     <script type="module" src="./dist/script_interpolations.bundle.js"></script>
+
+    <!-- Info Button -->
+    <button id="infoBtn">Info</button>
+
+    <!-- Info Modal -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Here you can add the theoretical background and explanation for spline interpolation...</p>
+            <h2>Polynomial Regression - Theory</h2>
+                <p>
+                    Polynomial regression is a form of regression analysis in which the relationship between the independent variable <i>x</i> and the dependent variable <i>y</i> is modeled as an <i>n</i>th degree polynomial.
+                </p>
+                <p>
+                    The general form of a polynomial of degree <i>n</i> is:
+                </p>
+                <p>
+                    \( y = a_0 + a_1x + a_2x^2 + \ldots + a_nx^n \)
+                </p>
+                <p>
+                    Polynomial regression fits a nonlinear relationship between the value of <i>x</i> and the corresponding conditional mean of <i>y</i>, denoted \( E(y | x) \). Although polynomial regression fits a nonlinear model to the data, as a statistical estimation problem, it is linear in terms of the unknown parameters \( a_0, a_1, \ldots, a_n \).
+                </p>
+        </div>
+    </div>
+
+    <!-- Include the new JavaScript file for the modal -->
+    <script src="./dist/modal.bundle.js"></script>
+
 </body>
 </html>
