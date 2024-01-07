@@ -23,12 +23,28 @@ p {
     font-size: 1.2em;
 }
 
-.plot-container {
-    margin: 20px 0;
+/* Containers */
+
+.plot-container, .slider-container {
+    width: 100%; /* Ensure these containers take full width of their parent */
 }
 
-.slider-container {
-    margin: 20px 0;
+.flex-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 20px; /* Spacing between buttons and graph */
+}
+
+.graph-slider-container {
+    display: flex;
+    flex-direction: column; /* Ensure vertical stacking */
+    width: 100%; /* Take up the remaining width */
 }
 
 
@@ -107,14 +123,28 @@ input[type="range"]::-moz-range-thumb {
     cursor: pointer;
 }
 
-/* Info Button Style */
-#infoBtn {
+/*  Buttons */
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 20px; /* Spacing between buttons and graph */
+    margin-top: 80px; /* Adjust this value to position the buttons lower */
+    margin-bottom: 20px;
+}
+
+
+/* Home and Info Button Styles */
+#homeBtn, #infoBtn {
     background-color: #4CAF50; /* Green background */
     color: white;
     padding: 10px 20px;
-    margin: 10px 0;
+    margin: 5px 0;
     border: none;
     cursor: pointer;
+    width: 100px; /* Standardize button width */
+    text-align: center; /* Center text in button */
 }
 
 /* Modal Style */
@@ -133,18 +163,41 @@ input[type="range"]::-moz-range-thumb {
 
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 5% auto 5% 25%; /* Aligns modal to the right */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 70%; /* Set modal width to 70% of the page width */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Optional: Adds a shadow for better visibility */
 }
 
-/* The Close Button */
+/* Targeting all text within the modal content */
+.modal-content p,
+.modal-content h2,
+.modal-content li,
+.modal-content span {
+    color: #444444; /* Set your desired font color here */
+}
+
+/* If you have links inside the modal and want to style them as well */
+.modal-content a {
+    color: #add8e6; /* Light blue link color, for example */
+    text-decoration: underline;
+}
+
+/* Adjust the close button position if needed */
 .close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+    .modal-content {
+        width: 90%;
+        margin: 10% auto;
+    }
 }
 
 .close:hover,
@@ -153,3 +206,4 @@ input[type="range"]::-moz-range-thumb {
     text-decoration: none;
     cursor: pointer;
 }
+

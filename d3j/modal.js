@@ -18,3 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 });
+
+// for home button
+document.getElementById('homeBtn').addEventListener('click', function() {
+    window.location.href = '../index.html';  // Replace 'index.html' with the correct path if different
+});

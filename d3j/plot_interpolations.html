@@ -10,30 +10,37 @@
     
 </head>
 <body>
+
     <div class="content">
         <h1>Polynomial Regression Visualization</h1>
         <p>This interactive plot allows you to visualize polynomial regression with adjustable degrees. Drag the points and adjust the slider to see how the regression curve changes.</p>
-        
-        <div class="plot-container">
-            <svg id="plotArea" width="800" height="400" viewBox="0 0 1600 800"></svg>
-        </div>
-
-        <div class="slider-container">
-            <label for="degreeSlider">Degree of Polynomial: <span id="degreeValue">2</span></label>
-            <input type="range" id="degreeSlider" min="1" max="9" value="2">
+    
+        <div class="flex-container">
+            <div class="buttons-container">
+                <button id="homeBtn">Home</button>
+                <button id="infoBtn">Info</button>
+            </div>
+    
+            <div class="graph-slider-container"> <!-- New container for graph and slider -->
+                <div class="plot-container">
+                    <svg id="plotArea" width="800" height="400" viewBox="0 0 1600 800"></svg>
+                </div>
+    
+                <div class="slider-container">
+                    <label for="degreeSlider">Degree of Polynomial: <span id="degreeValue">2</span></label>
+                    <input type="range" id="degreeSlider" min="1" max="9" value="2">
+                </div>
+            </div>
         </div>
     </div>
 
-    <script type="module" src="./dist/script_interpolations.bundle.js"></script>
 
-    <!-- Info Button -->
-    <button id="infoBtn">Info</button>
+    <script type="module" src="./dist/script_interpolations.bundle.js"></script>
 
     <!-- Info Modal -->
     <div id="infoModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p>Here you can add the theoretical background and explanation for spline interpolation...</p>
             <h2>Polynomial Regression - Theory</h2>
                 <p>
                     Polynomial regression is a form of regression analysis in which the relationship between the independent variable <i>x</i> and the dependent variable <i>y</i> is modeled as an <i>n</i>th degree polynomial.

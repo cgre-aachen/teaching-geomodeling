@@ -15,7 +15,7 @@
   \******************/
 /***/ (() => {
 
-eval("// modal.js\ndocument.addEventListener('DOMContentLoaded', function() {\n    var modal = document.getElementById(\"infoModal\");\n    var btn = document.getElementById(\"infoBtn\");\n    var span = document.getElementsByClassName(\"close\")[0];\n\n    btn.onclick = function() {\n        modal.style.display = \"block\";\n    };\n\n    span.onclick = function() {\n        modal.style.display = \"none\";\n    };\n\n    window.onclick = function(event) {\n        if (event.target == modal) {\n            modal.style.display = \"none\";\n        }\n    };\n});\n\n\n//# sourceURL=webpack://sgm_interpolations/./modal.js?");
+eval("// modal.js\ndocument.addEventListener('DOMContentLoaded', function() {\n    var modal = document.getElementById(\"infoModal\");\n    var btn = document.getElementById(\"infoBtn\");\n    var span = document.getElementsByClassName(\"close\")[0];\n\n    btn.onclick = function() {\n        modal.style.display = \"block\";\n    };\n\n    span.onclick = function() {\n        modal.style.display = \"none\";\n    };\n\n    window.onclick = function(event) {\n        if (event.target == modal) {\n            modal.style.display = \"none\";\n        }\n    };\n});\n\n// for home button\ndocument.getElementById('homeBtn').addEventListener('click', function() {\n    window.location.href = '../index.html';  // Replace 'index.html' with the correct path if different\n});\n\n//# sourceURL=webpack://sgm_interpolations/./modal.js?");
 
 /***/ })
 
