@@ -180,7 +180,7 @@ input[type="range"]::-moz-range-thumb {
 
 /* If you have links inside the modal and want to style them as well */
 .modal-content a {
-    color: #add8e6; /* Light blue link color, for example */
+    color: #1981a3; /* Light blue link color, for example */
     text-decoration: underline;
 }
 

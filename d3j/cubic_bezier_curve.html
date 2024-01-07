@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cubic Bézier Curve Visualization</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style_dark.css">
+    <!-- MathJax for rendering equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="content">
+        <h1>Cubic Bézier Curve Visualization</h1>
+        <p>Drag the control points to see how the cubic Bézier curve changes.</p>
+    
+        <div class="flex-container">
+            <div class="buttons-container">
+                <button id="homeBtn">Home</button>
+                <button id="infoBtn">Info</button>
+            </div>
+    
+            <div class="plot-container">
+                <svg id="bezierPlot" width="800" height="400" viewBox="0 0 1600 800"></svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Bézier Curve -->
+    <script type="module" src="./dist/bezier_curve.bundle.js"></script>
+
+    <!-- Info Modal -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Cubic Bézier Curve - Theory</h2>
+            <p>
+                A cubic Bézier curve is defined by four control points. The first and last points are the endpoints of the curve, and the intermediate two points determine the shape of the curve. The curve is parameterized by a parameter \( t \) which runs from 0 to 1.
+            </p>
+            <p>
+                The mathematical representation of a cubic Bézier curve is:
+            </p>
+            <p>
+                \( B(t) = (1-t)^3P_0 + 3(1-t)^2tP_1 + 3(1-t)t^2P_2 + t^3P_3 \)
+            </p>
+            <p>
+                where \( P_0, P_1, P_2, \) and \( P_3 \) are the control points and \( t \) varies from 0 to 1.
+            </p>
+            <p>
+                Bézier curves are widely used in computer graphics to model smooth curves that can be scaled indefinitely.
+            </p>
+            <p>More information: <a href="https://blog.ivank.net/interpolation-with-cubic-splines.html">Blog on cubic splines</a></p>
+        </div>
+    </div>
+
+    <!-- Include the JavaScript file for the modal -->
+    <script src="./dist/modal.bundle.js"></script>
+</body>
+</html>
