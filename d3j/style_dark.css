@@ -136,7 +136,7 @@ input[type="range"]::-moz-range-thumb {
 
 
 /* Home and Info Button Styles */
-#homeBtn, #infoBtn {
+#homeBtn, #infoBtn, #CG3Btn {
     background-color: #4CAF50; /* Green background */
     color: white;
     padding: 10px 20px;

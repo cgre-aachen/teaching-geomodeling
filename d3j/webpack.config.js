@@ -6,6 +6,7 @@ module.exports = {
     script_interpolations: './script_interpolations.js',
     spline_interpolation: './spline_interpolation.js',
     bezier_curve: './bezier_curve.js',
+    bezier_spline: './bezier_spline.js',
     modal: './modal.js'
     // Add more entry points if needed
   },

@@ -23,3 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
 document.getElementById('homeBtn').addEventListener('click', function() {
     window.location.href = '../index.html';  // Replace 'index.html' with the correct path if different
 });
+
+// For CG3 button
+document.getElementById('CG3Btn').addEventListener('click', function() {
+    window.open('https://www.cg3.rwth-aachen.de', '_blank');
+});
