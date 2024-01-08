@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RBF Interpolation Visualization</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style_dark.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="content">
+        <h1>RBF Interpolation Visualization</h1>
+        <p>Drag the points to see how the RBF interpolation changes.</p>
+    
+        <div class="flex-container">
+            <div class="buttons-container">
+                <button id="homeBtn">Home</button>
+                <button id="infoBtn">Info</button>
+                <button id="CG3Btn">
+                    <!-- <img src="./images/SA_schematics_fig_a_Zeichenfläche 1.png" alt="Icon" style="height: 20px; margin-right: 5px;"> -->
+                    CG3
+                </button>
+            </div>
+    
+            <div class="plot-container">
+                <svg id="rbfPlot" width="800" height="400" viewBox="0 0 1600 800"></svg>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./dist/rbf_interpolation.bundle.js"></script>
+
+    <!-- Info Modal -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Radial Basis Function (RBF) Interpolation - Theory</h2>
+            <p>
+                RBF interpolation is a method of multivariate interpolation in which the interpolated surface is a sum of radial basis functions, each associated with a different point.
+            </p>
+            <p>
+                The general form of an RBF is:
+            </p>
+            <p>
+                \( f(x) = \sum_{i=1}^{n} \lambda_i \phi(\| x - x_i \|) \)
+            </p>
+            <p>
+                where \( \lambda_i \) are the weights, \( \phi \) is the radial basis function, \( x \) is the interpolation point, and \( x_i \) are the data points.
+            </p>
+            <p>
+                Common choices for \( \phi \) include Gaussian, Multiquadric, and Inverse Multiquadric functions.
+            </p>
+        </div>
+    </div>
+
+    <script src="./dist/modal.bundle.js"></script>
+
+</body>
+</html>
