@@ -99,6 +99,10 @@ function updateSpline() {
     // Sort the data by x-values
     data.sort((a, b) => a.x - b.x);
 
+    // get min/ max of data range
+    const xMin = d3.min(data, d => d.x);
+    const xMax = d3.max(data, d => d.x);
+
     // Extract sorted xs and ys
     const xs = data.map(d => d.x);
     const ys = data.map(d => d.y);
@@ -106,15 +110,14 @@ function updateSpline() {
     // Create the spline with sorted data
     const spline = new Spline(xs, ys);
   
-    // Generate points for the curve at a higher resolution
-    const curvePoints = [];
-    const start = x.domain()[0];
-    const end = x.domain()[1];
-    const step = (end - start) / 500;  // Adjust the number of points for smoothness
-
-    for (let i = start; i <= end; i += step) {
-        curvePoints.push({ x: i, y: spline.at(i) });
-    }
+     // Generate points for the curve at a higher resolution within the data range
+     const curvePoints = [];
+     const step = (xMax - xMin) / 500;  // Adjust the number of points for smoothness
+ 
+     for (let i = xMin; i <= xMax; i += step) {
+         curvePoints.push({ x: i, y: spline.at(i) });
+     }
+     
     // Draw the curve (or update if already drawn)
     const line = d3.line()
         .x(d => x(d.x))
