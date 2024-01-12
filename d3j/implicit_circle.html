@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+
+<div id="plot"></div>
+<input type="range" id="planeSlider" min="0" max="1" step="0.01" value="0.5" style="width: 400px;"/>
+
+<script>
+    let globalData;
+    let initialZ = 0.5; // Initial z-value for the plane
+
+    // Function to create a surface trace
+    function createSurfaceTrace(data, color) {
+        return {
+            x: data.x,
+            y: data.y,
+            z: data.z,
+            type: 'surface',
+            showscale: false,
+            opacity: 0.6,
+            surfacecolor: color
+        };
+    }
+
+    // Function to create a line trace (for the circle)
+    function createLineTrace(data, color) {
+        return {
+            x: data.x,
+            y: data.y,
+            z: data.z,
+            mode: 'lines',
+            line: {
+                color: color,
+                width: 4
+            },
+            type: 'scatter3d'
+        };
+    }
+
+    // Update plane and circle position
+    function updatePlot(newZ) {
+        let updatedPlaneZ = globalData.plane.z.map(row => row.map(() => newZ));
+
+        let updatedPlane = createSurfaceTrace({
+            x: globalData.plane.x,
+            y: globalData.plane.y,
+            z: updatedPlaneZ
+        }, 'orange');
+
+        let r = Math.sqrt(newZ);
+        let theta = Array.from({length: 100}, (_, i) => i * 2 * Math.PI / 99);
+        let updatedCircle = createLineTrace({
+            x: theta.map(t => r * Math.cos(t)),
+            y: theta.map(t => r * Math.sin(t)),
+            z: new Array(100).fill(newZ)
+        }, 'red');
+
+        Plotly.react('plot', [globalData.paraboloidTrace, updatedPlane, updatedCircle], globalData.layout);
+    }
+
+    // Fetch the data and plot
+    fetch('data_2.json').then(response => response.json()).then(data => {
+        globalData = {
+            paraboloidTrace: createSurfaceTrace(data.paraboloid, 'blue'),
+            plane: data.plane,
+            layout: {
+                title: '3D Paraboloid and Plane Intersection',
+                autosize: false,
+                width: 800,
+                height: 800,
+                margin: {
+                    l: 65,
+                    r: 50,
+                    b: 65,
+                    t: 90
+                }
+            }
+        };
+        updatePlot(initialZ);
+    });
+
+    // Event listener for the slider
+    document.getElementById('planeSlider').addEventListener('input', function() {
+        updatePlot(parseFloat(this.value));
+    });
+</script>
+
+</body>
+</html>
